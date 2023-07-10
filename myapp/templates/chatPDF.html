@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- js -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,300;1,400;1,500;1,600&display=swap"
+    rel="stylesheet">
+  <!-- css -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .thread_loading {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+    }
+
+    .underline {
+      text-decoration: underline;
+    }
+
+    .cp {
+      cursor: pointer;
+    }
+
+    .hide_sc::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge add Firefox */
+    .hide_sc {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      /* Firefox */
+    }
+
+    body,
+    html,
+    #root {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .chat_container {
+      background-color: black;
+      display: flex;
+      height: 100%;
+    }
+
+    .sidebar {
+      width: 25%;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar_content {
+      height: 100vh;
+      overflow-y: scroll;
+    }
+
+    .sidebar_header {
+      display: flex;
+      color: white;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .content_details {
+      margin-bottom: 20px;
+    }
+
+    .content_details p {
+      margin: 0;
+      color: white;
+    }
+
+    .sidebar_left_part,
+    .sidebar_right_part {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .battery {
+      width: 45px;
+      border: 1px solid white;
+      border-radius: 5px;
+      position: relative;
+      height: 20px;
+    }
+
+    .battery span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 11px;
+    }
+
+    .sign_in {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .f_nav a {
+      color: #808080;
+    }
+
+    .f_nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sidebar_content_footer {
+      display: flex;
+      padding: 10px 0;
+      justify-content: space-between;
+    }
+
+    .sign_in a {
+      color: #5E5DF0;
+    }
+
+    /* 
+================================================================
+=============================ChatBOx============================
+================================================================
+ */
+    .chatbox {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 55%;
+      background-color: #343535;
+      border-radius: 10px;
+      margin: 15px 0;
+      padding: 30px;
+    }
+
+    .conversations {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      overflow-y: scroll;
+    }
+
+    .ex_item svg {
+      margin-right: 7px;
+    }
+
+    .cnv {
+      position: relative;
+      max-width: 90%;
+    }
+
+    .cnv_form {
+      margin-top: 15px;
+    }
+
+    .cnv_item p {
+      margin: 0;
+      color: white;
+    }
+
+    .cnv_item {
+      margin-bottom: 25px;
+      display: flex;
+    }
+
+    .chatPDF {
+      justify-content: start;
+    }
+
+    .chatPDF .cnv {
+      padding: 10px 20px;
+      background: #131415;
+      border-radius: 10px;
+    }
+
+    .chatPDF span {
+      position: absolute;
+      color: white;
+      font-size: 30px;
+      right: -45px;
+      top: 0;
+    }
+
+    .chatUser {
+      justify-content: end;
+    }
+
+    .chatUser .cnv {
+      padding: 10px 20px;
+      background: #5E5DF0;
+      border-radius: 10px;
+    }
+
+    .chatUser span {
+      position: absolute;
+      color: white;
+      font-size: 30px;
+      left: -45px;
+      top: 0;
+    }
+
+    .chatbox_header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .chat_title span {
+      font-size: 24px;
+    }
+
+    .chat_title {
+      text-align: center;
+      width: 70%;
+    }
+
+    .action_icons {
+      display: flex;
+      cursor: pointer;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .action_icons svg {
+      font-size: 30px;
+    }
+
+    .custom_form {
+      position: relative;
+    }
+
+    .custom_form .upload_icon {
+      position: absolute;
+      right: 10px;
+      color: white;
+      top: 6px;
+    }
+
+    .custom_form .upload_icon svg {
+      color: #5E5DF0;
+      font-size: 26px;
+    }
+
+    .custom_form button {
+      position: absolute;
+      background: #5e5df0;
+      right: 1px;
+      color: white;
+      padding: 5px 10px;
+      top: 1px;
+    }
+
+    .custom_form button svg {
+      margin: 0 20px;
+    }
+
+    .custom_form input {
+      padding-right: 100px;
+      background-color: transparent;
+    }
+
+    .right_sidebar {
+      width: 20%;
+      display: flex;
+      flex-direction: column;
+      padding: 0 20px;
+    }
+
+    .file_history {
+      overflow: scroll;
+      overflow-y: scroll;
+      margin-bottom: 50px;
+      margin-top: 50px;
+    }
+
+    .rs_title h2 {
+      margin-top: 10px;
+    }
+
+    .file_history a,
+    .rs_title h2 {
+      color: white;
+    }
+
+    .rotate {
+      display: inline-block;
+      animation: rotate 2s infinite linear;
+    }
+
+    .cusom_form {
+      position: relative;
+    }
+
+    .cusom_form input {
+      padding-right: 100px;
+    }
+
+    .cusom_form button {
+      position: absolute;
+      color: white;
+      z-index: 999;
+      right: 1px;
+      top: 50%;
+      background: #5E5DF0;
+      padding: 5px 20px;
+      transform: translate(0, -50%);
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(360deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    .onlyMobile {
+      display: none;
+    }
+
+    @media (min-width: 1281px) {}
+
+
+    @media (min-width: 1025px) and (max-width: 1280px) {
+
+      /* CSS */
+
+    }
+
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+
+      /* CSS */
+
+    }
+
+
+
+    @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+      .sidebar {
+        flex: 1.5
+      }
+
+      .sidebar_header span {
+        font-size: 14px;
+      }
+
+      .sidebar,
+      .chatbox,
+      .right_sidebar {
+        padding: 15px;
+      }
+
+      .sidebar_left_part,
+      .sidebar_right_part,
+      .f_nav {
+        gap: 5px
+      }
+
+      p {
+        font-size: 14px;
+      }
+
+      .sidebar_content_footer a {
+        font-size: 12px;
+      }
+
+      .chat_title span {
+        font-size: 15px;
+      }
+
+      .action_icons svg {
+        font-size: 20px;
+      }
+
+      .action_icons {
+        gap: 15px;
+      }
+
+      .cnv {
+        max-width: 85%;
+      }
+
+      .chatPDF span {
+        font-size: 22px;
+        right: -28px;
+      }
+
+      .chatUser span {
+        font-size: 22px;
+        right: -28px;
+      }
+
+      .rs_title h2 {
+        font-size: 16px;
+      }
+
+      .cusom_form {
+        position: relative;
+      }
+
+      .cusom_form button {
+        position: absolute;
+        padding: 5px 0px;
+      }
+
+      .right_sidebar .cusom_form input {
+        font-size: 12px;
+        padding-right: 0;
+      }
+
+      .right_sidebar .cusom_form .show_lg {
+        display: none !important;
+      }
+
+      .file_history a,
+      .rs_title h2 {
+        font-size: 12px;
+      }
+
+      .file_history {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    }
+
+    @media (min-width: 300px) and (max-width: 767px) {
+      .onlyMobile {
+        display: block;
+      }
+
+      .sidebar {
+        flex: 1.5
+      }
+
+      .sidebar_header span {
+        font-size: 14px;
+      }
+
+      .sidebar,
+      .chatbox,
+      .right_sidebar {
+        padding: 15px;
+      }
+
+      .sidebar_left_part,
+      .sidebar_right_part,
+      .f_nav {
+        gap: 5px
+      }
+
+      p {
+        font-size: 14px;
+      }
+
+      .sidebar_content_footer a {
+        font-size: 12px;
+      }
+
+      .chat_title span {
+        font-size: 15px;
+      }
+
+      .action_icons svg {
+        font-size: 20px;
+      }
+
+      .action_icons {
+        gap: 15px;
+      }
+
+      .cnv {
+        max-width: 85%;
+      }
+
+      .chatPDF span {
+        font-size: 22px;
+        right: -28px;
+      }
+
+      .chatUser span {
+        font-size: 22px;
+        right: -28px;
+      }
+
+      .rs_title h2 {
+        font-size: 16px;
+      }
+
+      .cusom_form button {
+        padding: 5px 0px;
+      }
+
+      .right_sidebar .cusom_form input {
+        font-size: 12px;
+        padding-right: 0;
+      }
+
+      .right_sidebar .cusom_form .show_lg {
+        display: none !important;
+      }
+
+      .file_history a,
+      .rs_title h2 {
+        font-size: 12px;
+      }
+
+      .file_history {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      /*  */
+      .sidebar,
+      .right_sidebar {
+        display: none;
+      }
+
+      .chatbox {
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .chat_title {
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .show_left_sidebar {
+        display: block;
+      }
+
+      .chatbox_header {
+        gap: 20px;
+      }
+
+      .chat_title span svg {
+        font-size: 20px;
+      }
+
+      .chat_container {
+        position: relative;
+      }
+
+      .sidebar {
+        z-index: 9;
+        background: #404040;
+        width: 80%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+
+      .onlyMobile {
+        display: block;
+        color: pink;
+        font-size: 35px;
+      }
+
+      .onlyMobile svg {
+        color: pink;
+        font-size: 23px !important;
+      }
+
+      #sidebar {
+        display: none;
+        transition: transform 0.5s;
+        transform: translateX(-100%);
+      }
+
+      #sidebar.visible {
+        display: flex;
+        transform: translateX(0%);
+      }
+
+      #sidebar {
+        display: none;
+        transition: transform 0.5s;
+        transform: translateX(-100%);
+      }
+
+      #sidebar.visible {
+        display: flex;
+        transform: translateX(0%);
+      }
+
+    }
+
+    .rotate-infinite {
+      display: inline-block;
+      animation: rotate 2s infinite linear;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(360deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  {% block content %} {% load crispy_forms_tags %}
+  <div class="chat_container">
+    <div id="sidebar" class="sidebar">
+      <div class="sidebar_header mb-4">
+        <div class="sidebar_left_part">
+          <span class="onlyMobile">
+            <FaWindowClose />
+          </span>
+          <div class="bar_icon">
+            <BsBarChartSteps />
+          </div>
+          <div class="pdf_name">
+            <span>Bill01.pdf</span>
+          </div>
+        </div>
+        <div class="sidebar_right_part">
+          <div class="sl">
+            <span>1/23</span>
+          </div>
+          <div class="zoom_in">
+            <span>
+              <MdZoomInMap />
+            </span>
+          </div>
+          <div class="battery">
+            <span>55%</span>
+          </div>
+          <div class="zoom_in">
+            <span>
+              <MdZoomOutMap />
+            </span>
+          </div>
+        </div>
+      </div>
+      <div id="sidebar_content" class="sidebar_content hide_sc">
+
+        {% if url %}
+        <div id="content_details_pdf" class="content_details">
+          <embed src="http://localhost:8000/{{ url }}#toolbar=0" width="100%" height="400px" type="application/pdf">
+        </div>
+        {% endif %}
+      </div>
+      <div class="sidebar_content_footer">
+        <div class="sign_in">
+          <a href="/">Sign In</a>
+        </div>
+        <div class="f_nav">
+          <a href="">Home</a>
+          <a href="/about">About</a>
+          <a href="/api">API</a>
+          <a href="/faq">Faq</a>
+        </div>
+      </div>
+    </div>
+    <div class="chatbox">
+      <div class="chatbox_header">
+        <div class="chat_title">
+          <span class="show_left_sidebar">
+            <AiOutlineMenuUnfold />
+          </span>
+          <span>Chat with Bill01.pdf</span>
+        </div>
+        <div class="action_icons">
+          <span>
+            <img src="/media/assets/upload.png" id="upload_icon" style="width: 35px;" alt="">
+          </span> <span>
+            <img src="/media/assets/share.png" alt="">
+          </span>
+          {% if url %}
+          <span>
+            <a href="{{ url }}" target="_blank">
+              <img src="/media/assets/downloadPDF.png" alt="">
+            </a>
+          </span>
+          {% endif %}
+          <span>
+            <a href="/pdf_upload">
+              <img src="/media/assets/refrash.png" alt="">
+            </a>
+          </span>
+          <span id="delete_pdf">
+            <img src="/media/assets/delete.png" alt="">
+          </span>
+        </div>
+      </div>
+      <div id="conversations" class="conversations hide_sc">
+        <form method="post" enctype="multipart/form-data" action="{% url 'index' %}">
+          {% csrf_token %}
+          <div class="form-row mt-4 sr-only">
+            <div class="col-6">
+              <label for="file" class="btn btn-outline-secondary w-100 mb-0">Browse File...</label>
+              <input id="file " type="file" name="file" class="d-none" />
+            </div>
+            <div class="col-auto">
+              <button type="submit" id="send_pdf" class="btn btn-outline-primary">
+                Upload file
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <!-- <div class="cnv_item chatPDF">
+          <div class="cnv">
+            <span class="cp">
+              <BiCopy />
+            </span>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+              mollis, velit sit amet scelerisque luctus, mauris dui semper
+              sapien, ac semper enim quam eget nibh. Quisque ac lectus ut
+              mauris semper scelerisque. Donec ac eros eget quam ultricies
+              rutrum. Vivamus eget enim augue. Pellentesque habitant morbi
+              tristique senectus et netus et malesuada fames ac turpis
+              egestas.
+            </p>
+            <p class="mt-4">Example questions:</p>
+            <div class="ex_item">
+              <p>
+                <AiOutlineSend />
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit?
+              </p>
+              <p>
+                <AiOutlineSend />
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit?
+              </p>
+            </div>
+            <p class=" mt-4">consectetur adipiscing elit?</p>
+          </div>
+        </div> -->
+        <!-- 
+        <div class="cnv_item chatPDF">
+          <div class="cnv">
+            <span class="cp">
+              <BiCopy />
+            </span>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+              mollis, velit sit amet scelerisque luctus, mauris dui semper
+              sapien, ac semper enim quam eget nibh. Quisque ac lectus ut
+              mauris semper scelerisque. Donec ac eros eget quam ultricies
+              rutrum. Vivamus eget enim augue. Pellentesque habitant morbi
+              tristique senectus et netus et malesuada fames ac turpis
+              egestas.
+            </p>
+            <p class="mt-4">Example questions:</p>
+            <div class="ex_item">
+              <p>
+                <AiOutlineSend />
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit?
+              </p>
+              <p>
+                <AiOutlineSend />
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit?
+              </p>
+            </div>
+            <p class=" mt-4">consectetur adipiscing elit?</p>
+          </div>
+        </div>
+        <div class="cnv_item chatUser">
+          <div class="cnv">
+            <span class="cp">
+              <CiEdit />
+            </span>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
+              ipsum dolor sit amet
+            </p>
+          </div>
+        </div>
+        <div class="cnv_item chatPDF">
+          <div class="cnv">
+            <span class="cp">
+              <BiCopy />
+            </span>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+              mollis, velit sit amet scelerisque luctus, mauris dui semper
+              sapien, ac semper enim quam eget nibh. Quisque ac lectus ut
+              mauris semper scelerisque. Donec ac eros eget quam
+            </p>
+          </div>
+        </div>
+
+        <div class="cnv_item chatUser">
+          <div class="cnv">
+            <span class="cp">
+              <CiEdit />
+            </span>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p>
+          </div>
+        </div>
+        <div class="cnv_item chatPDF">
+          <div class="cnv">
+            <img src="./images/loading.png" alt="">
+          </div>
+        </div>
+ -->
+      </div>
+      <form class="cnv_form" id="qwer">
+        <div id="fixed" class="cusom_form">
+          <div id="div_id_msg">
+            <input id="id_msg" type="text" class="form-control" placeholder="Ask any question ..." />
+            <button type="submit" class="btn">Send</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="right_sidebar">
+      <div class="rs_title">
+        <h2>USA Code</h2>
+      </div>
+      <div class="cusom_form">
+        <input type="text" class="form-control" placeholder="Ask any question ..." />
+      </div>
+      <div class="file_history hide_sc">
+        <div class="mb-3">
+          <a href="#"> Flag And Seal, Seat Of Government, And The
+            States
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $('#upload_icon').click(() => {
+      $("input[name='file']").trigger('click');
+    });
+
+  </script>
+  <script>
+    $("input[name='file']").change(function () {
+      var fileName = $(this).val().split('/').pop().split('\\').pop()
+      $("label").text(fileName)
+      $('#send_pdf').trigger('click')
+      var loadingElement = $('<div id="thread_loading" class="thread_loading cnv_item chatPDF">').append(
+        $('<div class="cnv">').append(
+          $('<img class="rotate-infinite" src="/media/assets/loading.png" alt="">')
+        )
+      );
+      $('#div_id_msg').append(loadingElement);
+    })
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#id_msg').keydown(function (event) {
+        if (event.keyCode === 13) { // 13 is the code for enter key
+          event.preventDefault();
+          $('#qwer').submit();
+        }
+      });
+
+      $('#qwer').submit(function (e) {
+        e.preventDefault();
+      });
+    });
+  </script>
+  <script type="text/javascript">
+    $('#delete_pdf').click(function () {
+      $('#content_details_pdf').remove()
+    })
+  </script>
+  <script type="text/javascript">
+    $('#qwer').submit(function (e) {
+      e.preventDefault()
+      var loadingElement = $('<div id="thread_loading" class="thread_loading cnv_item chatPDF">').append(
+        $('<div class="cnv">').append(
+          $('<img class="rotate-infinite" src="/media/assets/loading.png" alt="">')
+        )
+      );
+      $('#div_id_msg').append(loadingElement);
+
+      var userInput = $('#id_msg').val();
+      var newElement = $('<div class="cnv_item chatUser">').append(
+        $('<div class="cnv">').append(
+          $('<span class="cp">').append('<BiCopy />'),
+          $('<p>').text(userInput)
+        )
+      );
+      $('#conversations').append(newElement);
+      var doc = document.getElementById('conversations')
+      var notes = null
+      var data = $(this).serializeArray()
+      $('#id_msg').val('')
+
+      // store chat history  from page 
+      // cHistory = ''
+      // $('.cnv_item > .cnv > p').each(function () {
+      //   var content = $(this).text();
+      //   cHistory += 'Customer: ' + content + '\n';
+      // });
+
+      var cHistory = '';
+      $('.cnv_item > .cnv > p').each(function () {
+        var content = $(this).text();
+        var isCustomer = $(this).parent().parent().hasClass('chatUser');
+        var role = isCustomer ? 'Customer' : 'You';
+        cHistory += role + ': ' + content + '\\n';
+      });
+
+      // $('.chatPDF > .cnv > p').each(function () {
+      //   var content = $(this).text();
+      //   cHistory += 'You: ' + content + '\n';
+      // });
+      console.log(cHistory)
+      cHistory += 'You:'
+      $.ajax({
+        type: 'POST',
+        url: '/api/chatting_tuned/',
+        data: { msg: cHistory },
+        success: function (data) {
+          console.log(data.reply);
+
+          var newElement = $('<div class="cnv_item chatPDF">').append(
+            $('<div class="cnv">').append(
+              $('<span class="cp">').append('<BiCopy />'),
+              $('<p>').text(data.reply)
+            )
+          );
+
+          $('#thread_loading').remove();
+          $('#conversations').append(newElement);
+        }
+      });
+    })
+  </script>
+
+  {% endblock %}
+
+</body>
+
+</html>

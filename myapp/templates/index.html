@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,300;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+    <!-- css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .nav_component {
+            background-color: #191919;
+            padding: 40px 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        span {
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 18px;
+            color: white;
+        }
+
+        h5 {
+            font-size: 20px;
+        }
+
+        .css-z7uhs0-MuiStepConnector-line {
+            border-top-style: dashed !important;
+        }
+
+        .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active,
+        .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root {
+            color: #5E5DF0 !important;
+        }
+
+        .banner_wrap {
+            background-color: #191919;
+            text-align: center;
+            padding: 100px 0;
+            background-image: url('/media/images/w.png');
+            background-repeat: no-repeat;
+            background-position: right;
+            padding-bottom: 200px;
+        }
+
+        .banner_content {}
+
+        .banner_content h2 {
+            font-size: 48px;
+            background: linear-gradient(to right, #ac00ff 0%, #1c8599 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .button_group {
+            margin: 10px 0;
+        }
+
+        .button_group button {
+            background-color: #5E5DF0;
+            margin: 10px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .button_group button span {
+            margin: 0 3px;
+        }
+
+        .upload_box {
+            display: inline-block;
+            border: 1px dashed #FFFFFF80;
+            border-radius: 30px;
+            padding: 50px;
+            background-color: #343535;
+            width: 80%;
+            margin-top: 60px;
+        }
+
+        .upload_box h3 {
+            font-size: 24px;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .upload_box p {
+            margin: 0;
+        }
+
+        /* three_sectoin_wrap */
+        .three_sectoin_wrap {
+            padding: 100px 0;
+            background-color: black;
+        }
+
+        .ts_card h3 {
+            color: white;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .ts_card {
+            background-color: #191919;
+        }
+
+        .ts_title {
+            margin-bottom: 30px;
+        }
+
+        .how_it_work_wrap {
+            background-color: #191919;
+            padding: 100px 0;
+            padding-bottom: 200px;
+        }
+
+        .h_title h1 {
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 48px;
+            background: linear-gradient(to right, #ac00ff 0%, #1c8599 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .h_single_icon {
+            text-align: center;
+            border: 1px solid #FFFFFF;
+            padding: 30px 0;
+            border-radius: 10px;
+        }
+
+        .h_single_icon h4 {
+            color: white;
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: 300;
+        }
+
+        /* f_banner_wrap */
+        .f_banner_wrap {
+            padding: 100px 0;
+            background-image: url(/media/images/fbg.png);
+            padding-bottom: 30px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .f_banner_wrap h1 {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 30px;
+        }
+
+        .f_banner_wrap h1 span {
+            font-size: 48px;
+            margin: 0 3px;
+            background: linear-gradient(to right, #ac00ff 0%, #1c8599 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .f_banner_wrap .grButton {
+            border: 0;
+            padding: 10px 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            background: rgb(172, 0, 255);
+            background: linear-gradient(90deg, rgba(172, 0, 255, 1) 0%, rgba(28, 133, 153, 1) 100%);
+        }
+
+        .fbg {
+            margin-top: 40px;
+        }
+
+        .fbg span {
+            margin: 0 3px;
+        }
+
+        /* footer items */
+        .footer_wrap {
+            background: #191919;
+            padding: 30px 0;
+        }
+
+        .footer_items {
+            color: white;
+            text-align: right;
+        }
+
+        .footer_items span {
+            color: #808080;
+            margin: 0 4px;
+        }
+
+        .cp {
+            cursor: pointer;
+        }
+
+        /* 
+================================================
+--------- Home Responsive CSS ------------------
+================================================
+ */
+
+
+
+
+
+        @media (min-width: 1281px) {}
+
+
+        @media (min-width: 1025px) and (max-width: 1280px) {
+
+            /* CSS */
+
+        }
+
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+
+            /* CSS */
+
+        }
+
+
+
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+            /* CSS */
+
+        }
+
+
+        @media (min-width: 300px) and (max-width: 767px) {
+
+            .f_banner_wrap h1,
+            .f_banner_wrap h1 span {
+                font-size: 30px;
+            }
+
+            .footer_items,
+            .button_group {
+                text-align: center;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="nav_component">
+        <div class="container">
+            <div class="logo_wrap">
+                <a href="/">
+                    <img src="/media/images/logo.png" alt="logo">
+                </a>
+            </div>
+        </div>
+    </div>
+    <section>
+        <div class="banner_area">
+            <div class="banner_wrap">
+                <div class="container banner_content">
+                    <h2>Chat with Your PDFs</h2>
+                    <div class="button_group ">
+                        <button class="btn">
+                            <span>
+                                <BsDiscord />
+                            </span>
+                            Join Discord
+                        </button>
+                        <button class="btn">
+                            <span>
+                                <AiOutlineTwitter />
+                            </span>
+                            Post to Twitter
+                        </button>
+                        <button class="btn">
+                            <span>
+                                <BsFacebook />
+                            </span>
+                            Share on Facebook
+                        </button>
+                    </div>
+                    <div class="upload_box">
+                        <img src="/media/images/pdf.png" alt="" />
+                        <h3>Upload Your PDFs</h3>
+                        <p>Or</p>
+                        <a href="">
+                            <span>Browse Here</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="three_sectoin">
+            <div class="three_sectoin_wrap">
+                <div class="three_sectoin_content container">
+                    <div class="row">
+
+                        <div class="col-md-4 col-sm-12 mb-4">
+                            <div class="ts_card card">
+                                <div class="card-body">
+                                    <div class="ts_title">
+                                        <h3>
+                                            For Lawyer
+                                            <img src='/media/images/img1.png' alt="" />
+                                        </h3>
+                                    </div>
+                                    <div class="ts_disc">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis,
+                                            velit sit amet scelerisque luctus, mauris dui semper sapien, ac semper
+                                            enim quam eget nibh. Quisque ac lectus ut mauris semper scelerisque.
+                                            Donec ac eros eget quam ultricies rutrum. Vivamus eget enim augue.
+                                            Pellentesque habitant morbi tristique senectus et netus et malesuada
+                                            fames ac turpis egestas. This paragraph uses dummy text to create a
+                                            natural-looking block of text. The dummy.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 mb-4">
+                            <div class="ts_card card">
+                                <div class="card-body">
+                                    <div class="ts_title">
+                                        <h3>
+                                            For Work
+                                            <img src='/media/images/img2.png' alt="" />
+                                        </h3>
+                                    </div>
+                                    <div class="ts_disc">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis,
+                                            velit sit amet scelerisque luctus, mauris dui semper sapien, ac semper
+                                            enim quam eget nibh. Quisque ac lectus ut mauris semper scelerisque.
+                                            Donec ac eros eget quam ultricies rutrum. Vivamus eget enim augue.
+                                            Pellentesque habitant morbi tristique senectus et netus et malesuada
+                                            fames ac turpis egestas. This paragraph uses dummy text to create a
+                                            natural-looking block of text. The dummy.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 mb-4">
+                            <div class="ts_card card">
+                                <div class="card-body">
+                                    <div class="ts_title">
+                                        <h3>
+                                            For Curious Mind
+                                            <img src='/media/images/img3.png' alt="" />
+                                        </h3>
+                                    </div>
+                                    <div class="ts_disc">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis,
+                                            velit sit amet scelerisque luctus, mauris dui semper sapien, ac semper
+                                            enim quam eget nibh. Quisque ac lectus ut mauris semper scelerisque.
+                                            Donec ac eros eget quam ultricies rutrum. Vivamus eget enim augue.
+                                            Pellentesque habitant morbi tristique senectus et netus et malesuada
+                                            fames ac turpis egestas. This paragraph uses dummy text to create a
+                                            natural-looking block of text. The dummy.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="how_it_work">
+            <div class="how_it_work_wrap">
+                <div class="how_it_work_content container">
+                    <div class="h_title">
+                        <h1>How it works</h1>
+                        <div class="steps">
+                            <StepsComponent />
+                        </div>
+                        <div class="h_icons">
+                            <div class="row">
+
+                                <div class="col-md-3 mb-4 col-sm-12">
+                                    <div class="h_single_icon">
+                                        <img src='/media/images/h1.png' alt="hicon">
+                                        <h4> Upload your File </h4>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3 mb-4 col-sm-12">
+                                    <div class="h_single_icon">
+                                        <img src='/media/images/h2.png' alt="hicon">
+                                        <h4> Chat with Bill01 </h4>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3 mb-4 col-sm-12">
+                                    <div class="h_single_icon">
+                                        <img src='/media/images/h3.png' alt="hicon">
+                                        <h4> Chat with Bill01 </h4>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3 mb-4 col-sm-12">
+                                    <div class="h_single_icon">
+                                        <img src='/media/images/h4.png' alt="hicon">
+                                        <h4> Share your work </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="f_banner">
+            <div class="f_banner_wrap">
+                <div class="f_banner_content container">
+                    <div class="row">
+                        <div class="col-md-9 col-sm-12">
+                            <h1>
+                                A new way to create documents And workspaces with
+                                <span>Generative AI</span>
+                            </h1>
+                            <p> Made with user-friendliness as a priority.</p>
+                            <a href='/pdf_upload/'>
+                                <button class="btn grButton">
+                                    Let’s Try
+                                    <BsArrowRight />
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="text-right mt-4 ">
+                        <div class="button_group fbg mt-4 ">
+                            <button class="btn">
+                                <span>
+                                    <BsDiscord />
+                                </span>
+                                Join Discord
+                            </button>
+                            <button class="btn">
+                                <span>
+                                    <AiOutlineTwitter />
+                                </span>
+                                Post to Twitter
+                            </button>
+                            <button class="btn">
+                                <span>
+                                    <BsFacebook />
+                                </span>
+                                Share on Facebook
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer_wrap">
+            <div class="footer_content container">
+                <div class="footer_items">
+                    <span class="cp"> My Account </span>
+                    <span class="cp"> - </span>
+                    <span class="cp"> Pricing </span>
+                    <span class="cp"> - </span>
+                    <span class="cp"> FAQ </span>
+                    <span class="cp"> - </span>
+                    <span class="cp"> Affiliate </span>
+                    <span class="cp"> - </span>
+                    <span class="cp"> Twitter </span>
+                    <span class="cp"> - </span>
+                    <span class="cp"> Contact </span>
+                    <span class="cp"> - </span>
+                    <span class="cp"> Policy </span>
+                    <span class="cp"> - </span>
+                    <span class="cp"> Terms </span>
+                    <span class="cp"> - </span>
+                    <span class="cp"> Imprint </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
