@@ -22,6 +22,9 @@
   <!-- css -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <style>
+    html{
+      overflow: hidden;
+    }
     .thread_loading {
       display: none;
       position: absolute;
@@ -155,10 +158,7 @@
     }
 
     .conversations {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: end;
+      max-height: 100vh;
       overflow-y: scroll;
     }
 
@@ -734,104 +734,7 @@
               </button>
             </div>
           </div>
-        </form>
-
-        <!-- <div class="cnv_item chatPDF">
-          <div class="cnv">
-            <span class="cp">
-              <BiCopy />
-            </span>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-              mollis, velit sit amet scelerisque luctus, mauris dui semper
-              sapien, ac semper enim quam eget nibh. Quisque ac lectus ut
-              mauris semper scelerisque. Donec ac eros eget quam ultricies
-              rutrum. Vivamus eget enim augue. Pellentesque habitant morbi
-              tristique senectus et netus et malesuada fames ac turpis
-              egestas.
-            </p>
-            <p class="mt-4">Example questions:</p>
-            <div class="ex_item">
-              <p>
-                <AiOutlineSend />
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit?
-              </p>
-              <p>
-                <AiOutlineSend />
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit?
-              </p>
-            </div>
-            <p class=" mt-4">consectetur adipiscing elit?</p>
-          </div>
-        </div> -->
-        <!-- 
-        <div class="cnv_item chatPDF">
-          <div class="cnv">
-            <span class="cp">
-              <BiCopy />
-            </span>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-              mollis, velit sit amet scelerisque luctus, mauris dui semper
-              sapien, ac semper enim quam eget nibh. Quisque ac lectus ut
-              mauris semper scelerisque. Donec ac eros eget quam ultricies
-              rutrum. Vivamus eget enim augue. Pellentesque habitant morbi
-              tristique senectus et netus et malesuada fames ac turpis
-              egestas.
-            </p>
-            <p class="mt-4">Example questions:</p>
-            <div class="ex_item">
-              <p>
-                <AiOutlineSend />
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit?
-              </p>
-              <p>
-                <AiOutlineSend />
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit?
-              </p>
-            </div>
-            <p class=" mt-4">consectetur adipiscing elit?</p>
-          </div>
-        </div>
-        <div class="cnv_item chatUser">
-          <div class="cnv">
-            <span class="cp">
-              <CiEdit />
-            </span>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-              ipsum dolor sit amet
-            </p>
-          </div>
-        </div>
-        <div class="cnv_item chatPDF">
-          <div class="cnv">
-            <span class="cp">
-              <BiCopy />
-            </span>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-              mollis, velit sit amet scelerisque luctus, mauris dui semper
-              sapien, ac semper enim quam eget nibh. Quisque ac lectus ut
-              mauris semper scelerisque. Donec ac eros eget quam
-            </p>
-          </div>
-        </div>
-
-        <div class="cnv_item chatUser">
-          <div class="cnv">
-            <span class="cp">
-              <CiEdit />
-            </span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</p>
-          </div>
-        </div>
-        <div class="cnv_item chatPDF">
-          <div class="cnv">
-            <img src="./images/loading.png" alt="">
-          </div>
-        </div>
- -->
+        </form> 
       </div>
       <form class="cnv_form" id="qwer">
         <div id="fixed" class="cusom_form">
