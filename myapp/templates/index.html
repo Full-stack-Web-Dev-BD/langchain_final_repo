@@ -11,12 +11,24 @@
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,300;1,400;1,500;1,600&display=swap"
         rel="stylesheet">
     <!-- css -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
+        .browse_button {
+            cursor: pointer;
+            color: #007bff;
+            text-decoration: none;
+            background-color: transparent;
+        }
+
         .nav_component {
             background-color: #191919;
             padding: 40px 0;
@@ -279,7 +291,21 @@
         </div>
     </div>
     <section>
-        <div class="banner_area">
+        <form method="post" enctype="multipart/form-data" action="{% url 'index' %}">
+            {% csrf_token %}
+            <div class="form-row mt-4 sr-only">
+                <div class="col-6">
+                    <label for="file" class="btn btn-outline-secondary w-100 mb-0">Browse File...</label>
+                    <input id="file" type="file" name="file" class="d-none" />
+                </div>
+                <div class="col-auto">
+                    <button type="submit" id="send_pdf_button" class="btn btn-outline-primary">
+                        Upload file
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="banner_area" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
             <div class="banner_wrap">
                 <div class="container banner_content">
                     <h2>Chat with Your PDFs</h2>
@@ -307,14 +333,15 @@
                         <img src="/media/images/pdf.png" alt="" />
                         <h3>Upload Your PDFs</h3>
                         <p>Or</p>
-                        <a href="">
+                        <p id="upload_button" class="browse_button">
                             <span>Browse Here</span>
-                        </a>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    
     <section>
         <div class="three_sectoin">
             <div class="three_sectoin_wrap">
@@ -509,6 +536,44 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        $('#upload_button').click(() => {
+            $("input[name='file']").trigger('click');
+        });
+    </script>
+
+    <script>
+        $("input[name='file']").change(function () {
+            var fileName = $(this).val().split('/').pop().split('\\').pop()
+            $("label").text(fileName)
+            $('#send_pdf_button').trigger('click')
+        })
+    </script>
+    <!-- drag and drop -->
+    <script>
+        function handleDrop(event) {
+            event.preventDefault();
+            const file = event.dataTransfer.files[0];
+            $("input[name='file']").prop('files', event.dataTransfer.files);
+            $("label").text(file.name);
+            $('#send_pdf_button').trigger('click');
+        }
+    
+        function handleDragOver(event) {
+            event.preventDefault();
+        }
+    
+        $('#upload_button').click(() => {
+            $("input[name='file']").trigger('click');
+        });
+    
+        $("input[name='file']").change(function () {
+            var fileName = $(this).val().split('/').pop().split('\\').pop()
+            $("label").text(fileName);
+            $('#send_pdf_button').trigger('click');
+        });
+    </script>
 </body>
 
 </html>
